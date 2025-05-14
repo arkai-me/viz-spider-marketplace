@@ -369,22 +369,18 @@ function RadarChart(
     // let levels = [];
     if (cfg.independent) {
       // levels = [];
-      axisGrid.selectAll(".axisLabel").forEach(function (d) {
-        s = d.length;
-        let n = s / total;
-        d.slice(0, n).forEach(function (d) {
-          set = [];
-          r = parseInt(d.getAttribute("y"));
-          axis[0].forEach(function (d, i) {
-            tempx = r * Math.cos(angleSlice * i - (Math.PI * 3) / 2);
-            tempy = r * Math.sin(angleSlice * i - (Math.PI * 3) / 2);
-            set.push({
-              x: tempx,
-              y: tempy,
-            });
+      let axisLabels = axisGrid.selectAll(".axisLabel").nodes();
+      axisLabels.forEach(function (label) {
+        let r = parseInt(label.getAttribute("y"));
+        let set = [];
+
+        axis.nodes().forEach(function (_, i) {
+          let tempx = r * Math.cos(angleSlice * i - (Math.PI * 3) / 2);
+          let tempy = r * Math.sin(angleSlice * i - (Math.PI * 3) / 2);
+          set.push({ x: tempx, y: tempy });
         });
+
         levels.push(set);
-      });
       });
       levels.forEach(function (d) {
         axisGrid
@@ -411,21 +407,18 @@ function RadarChart(
       });
     } else {
       //levels = [];
-      axisGrid.selectAll(".axisLabel").forEach(function (d) {
-        s = d.length;
-        d.forEach(function (d) {
-          set = [];
-          r = parseInt(d.getAttribute("y"));
-          axis[0].forEach(function (d, i) {
-            tempx = r * Math.cos(angleSlice * i - (Math.PI * 3) / 2);
-            tempy = r * Math.sin(angleSlice * i - (Math.PI * 3) / 2);
-            set.push({
-              x: tempx,
-              y: tempy,
-            });
+      const axisLabels = axisGrid.selectAll(".axisLabel").nodes(); 
+      axisLabels.forEach(function (label) {
+        const r = parseInt(label.getAttribute("y"));
+        const set = [];
+
+        axis.nodes().forEach(function (_, i) {
+          const tempx = r * Math.cos(angleSlice * i - (Math.PI * 3) / 2);
+          const tempy = r * Math.sin(angleSlice * i - (Math.PI * 3) / 2);
+          set.push({ x: tempx, y: tempy });
         });
+
         levels.push(set);
-      });
       });
       levels.forEach(function (d) {
         axisGrid
