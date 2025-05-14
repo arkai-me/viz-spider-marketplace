@@ -337,8 +337,10 @@ function RadarChart(
         cfg.labelFine
       );
     })
-    .text(function (d) {
-      return d;
+    .text(function (d, i) {
+      const series0 = data[0];
+      const value = series0.find(s => s.axis === d)?.rendered ?? '';
+      return `${d}\n${value}`;
     })
     .call(wrap, cfg.wrapWidth);
 
@@ -380,9 +382,9 @@ function RadarChart(
               x: tempx,
               y: tempy,
             });
-          });
-          levels.push(set);
         });
+        levels.push(set);
+      });
       });
       levels.forEach(function (d) {
         axisGrid
@@ -421,9 +423,9 @@ function RadarChart(
               x: tempx,
               y: tempy,
             });
-          });
-          levels.push(set);
         });
+        levels.push(set);
+      });
       });
       levels.forEach(function (d) {
         axisGrid
